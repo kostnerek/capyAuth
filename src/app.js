@@ -17,7 +17,7 @@ const REFRESH_TOKEN_EXPIRATION = process.env.REFRESH_TOKEN_EXPIRATION;
 
 
 app.use(express.json());
-app.use(morgan('tiny'));
+app.use(morgan('combined'));
 
 app.post('/auth/register', (req, res) => {
     const { username, password } = req.body;
