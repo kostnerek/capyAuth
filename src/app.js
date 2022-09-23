@@ -19,7 +19,7 @@ const REFRESH_TOKEN_EXPIRATION = process.env.REFRESH_TOKEN_EXPIRATION;
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('[:date[iso]] :remote-user :method :url :status :user-agent :response-time ms'));
+app.use(morgan('<:remote-addr> :remote-user |:method :url - :status| :user-agent :response-time ms [:date[iso]]'));
 
 mongoose.connect("mongodb://"+process.env.MONGO_HOST, { 
     dbName: process.env.MONGO_DB,
