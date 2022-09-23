@@ -1,0 +1,31 @@
+_id: req_f5ff8bd613d7442db61b0657f9f1f020
+type: Request
+parentId: fld_0791c08c56864c828b5b9cce52f77b39
+modified: 1663935420976
+created: 1663854003781
+url: http://{{ _.host }}:3001/auth/register
+name: /auth/register
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"username": "kostnerek",
+    	"password": "zaq1@WSX",
+    	"email": "filip.kostecki00@gmail.com"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_a37be67fc0b64f40a927a667fbd4803c
+authentication: {}
+metaSortKey: -1663874058726.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

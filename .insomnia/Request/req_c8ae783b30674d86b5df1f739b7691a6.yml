@@ -1,0 +1,31 @@
+_id: req_c8ae783b30674d86b5df1f739b7691a6
+type: Request
+parentId: fld_0791c08c56864c828b5b9cce52f77b39
+modified: 1663935168834
+created: 1663872723737
+url: http://{{ _.host }}:3001/auth
+name: /auth/hidden
+description: ""
+method: GET
+body: {}
+parameters: []
+headers:
+  - id: pair_d2f1c466d76b4f52bfd993dfae2a14f0
+    name: X-Access-Token
+    value: "{% variable 'accessToken' %}"
+    description: ""
+    disabled: false
+  - id: pair_5da01dc451324c5d963f71301d44a285
+    name: Authorization
+    value: weqrqwerqewrq
+    description: ""
+    disabled: true
+authentication: {}
+metaSortKey: -1663874058626.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
