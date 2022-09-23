@@ -12,7 +12,8 @@ export const verifyToken = (req, res, next) => {
     if (access_token) {
         jwt.verify(access_token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (err) return res.status(401).send({ message: 'Unauthorized!' });
-            req.userId = decoded.id;
+            req.username = decoded.username;
+            req.email = decoded.email;
             req.grant = 0;
             next();
         });
@@ -20,7 +21,8 @@ export const verifyToken = (req, res, next) => {
     if (refresh_token) {
         jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if (err) return res.status(401).send({ message: 'Unauthorized!' });
-            req.userId = decoded.id;
+            req.username = decoded.username;
+            req.email = decoded.email;
             req.grant = 1;
             next();
         });
