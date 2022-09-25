@@ -10,8 +10,10 @@ export const verifyToken = (req, res, next) => {
     if (access_token && refresh_token) return res.status(403).send({ message: 'Both tokens provided!' });
     
     if (access_token) {
+        console.log('Access token provided');
         jwt.verify(access_token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (err) return res.status(401).send({ message: 'Unauthorized!' });
+            console.log(decoded)
             req.username = decoded.username;
             req.email = decoded.email;
             req.grant = 0;
@@ -19,8 +21,10 @@ export const verifyToken = (req, res, next) => {
         });
     }
     if (refresh_token) {
+        console.log('Refresh token provided');
         jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if (err) return res.status(401).send({ message: 'Unauthorized!' });
+            console.log(decoded)
             req.username = decoded.username;
             req.email = decoded.email;
             req.grant = 1;

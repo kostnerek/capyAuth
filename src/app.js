@@ -1,9 +1,12 @@
 import express from 'express';
+import expressWs from 'express-ws'
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
+import fs from 'fs';
 import morgan from 'morgan';
 import { verifyToken } from './middlewares/verifyToken.js';
+import { websocketLogger } from './middlewares/loggerMiddleware.js';
 import { findUserByEmail, createUser, findUserByUsername } from './models/UserModel.js';
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
@@ -16,9 +19,12 @@ const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
 const ACCESS_TOKEN_EXPIRATION = process.env.ACCESS_TOKEN_EXPIRATION;
 const REFRESH_TOKEN_EXPIRATION = process.env.REFRESH_TOKEN_EXPIRATION;
 
-
+expressWs(app);
+app.use(websocketLogger);
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+const accessLogStream = fs.createWriteStream('./logs/' + "access.log", {flags: 'a'});
+app.use(morgan({stream: accessLogStream}));
 app.use(morgan('<:remote-addr> :remote-user |:method :url - :status| :user-agent :response-time ms [:date[iso]]'));
 
 mongoose.connect("mongodb://"+process.env.MONGO_HOST, { 
@@ -30,6 +36,18 @@ mongoose.connect("mongodb://"+process.env.MONGO_HOST, {
     useUnifiedTopology: true 
 });
 
+app.ws('/echo', (ws, req) => {
+    console.log(req.msg)
+    ws.on('message', (msg) => {
+        let current_logs = fs.readFileSync('./logs/' + "access.log", {flags: 'a'});
+        current_logs = current_logs.toString();
+        console.log(current_logs)
+        ws.send(current_logs);
+        // ws.send(msg);
+    });
+
+    console.log('socket', req.testing);
+});
 
 app.post('/auth/register', (req, res) => {
     const { username, password, email } = req.body;
@@ -64,6 +82,7 @@ app.get('/auth/login', (req, res) => {
             if (!result) return res.status(400).json({message: "Invalid password"});
             const accessToken = jwt.sign({ username: user.username, email: user.email }, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRATION });
             const refreshToken = jwt.sign({ username: user.username, email: user.email }, REFRESH_TOKEN_SECRET, { expiresIn: REFRESH_TOKEN_EXPIRATION });
+            console.log(accessToken, refreshToken);
             return res.status(200).json({ accessToken, refreshToken });
         });
     };
@@ -84,7 +103,8 @@ app.get('/auth/login', (req, res) => {
 })
 
 app.get('/auth', verifyToken, (req, res) => {
-    return res.status(200).json({ username: req.username, email: req.email });
+    // console.log(req);
+    return res.status(200).json({user:{ username: req.username, email: req.email, grant: req.grant }});
 })
 
 // TODO - Implement refreshing tokens
