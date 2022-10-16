@@ -1,24 +1,37 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     username: String,
     password: String,
     email: String,
+    created_at: { type: Date, default: Date.now },
 });
 
-const UserModel = mongoose.model("periAuth", UserSchema);
+UserSchema.pre('save', async function (next) {
+    console.log(this)
+    const user = this;
+    if(user.isModified('password') || user.isNew) {
+        user.password = await bcrypt.hash(user.password, 10)
+    }
+    next();
+})
 
-export const findUserByEmail = (email, cb) => {
-    UserModel.findOne({ email: email }, (err, user) => {
-        cb(err, user);
-    });
+const UserModel = mongoose.model("users", UserSchema);
+
+export const findUserByEmail = async (email) => {
+    return UserModel.findOne({ email: email })
+    .then((user) => {
+        return user;
+    })
 };
 
-export const findUserByUsername = (username, cb) => {
-    UserModel.findOne({ username: username }, (err, user) => {
-        cb(err, user);
-    });
+export const findUserByUsername = async (username) => {
+    return UserModel.findOne({ username: username })
+    .then((user) => {
+        return user;
+    })
 };
 
 export const createUser = (user, cb) => {
