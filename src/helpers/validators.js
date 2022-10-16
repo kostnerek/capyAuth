@@ -1,3 +1,7 @@
+/**
+ * @param {String} email 
+ * @returns {Boolean} - True if email is valid, false otherwise
+ */
 export const validateMail = (email) => {
     const tester = /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
     if (!email) return false;
@@ -19,6 +23,11 @@ export const validateMail = (email) => {
     return true;
 };
 
+/**
+ * 
+ * @param {String} password 
+ * @returns {Boolean} - True if password is valid, false otherwise
+ */
 export const validatePassword = (password) => {
     if (password.length < 8)      return false
     if (password.length > 32)     return false
@@ -28,11 +37,13 @@ export const validatePassword = (password) => {
     return true
 }
 
+/**
+ * @param {String} username
+ * @returns {Boolean} - True if username is valid, false otherwise
+ */
 export const validateUsername = (username) => {
     if (username.length < 4)      return false
     if (username.length > 32)     return false
     if (!username.match( /^[a-zA-Z0-9]+$/)) return false
-    /* if (!username.match(/[a-z]/)) return false
-    if (!username.match(/[A-Z]/)) return false */
     return true
 }
