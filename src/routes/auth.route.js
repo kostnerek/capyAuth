@@ -7,4 +7,5 @@ const router = Router();
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.post('/', verifyToken, authController.checkAuth);
+router.post('/refresh', authController.refreshToken);
 export default router;
