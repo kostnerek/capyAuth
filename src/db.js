@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
+/**
+ *  Function to connect to the mongodb, 
+ *  for now it only supports logging in with username and password
+ */ 
 const connectToDB = () => {
     mongoose.connect("mongodb://"+process.env.MONGO_HOST, { 
         dbName: process.env.MONGO_DB,
