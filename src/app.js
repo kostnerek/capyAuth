@@ -24,8 +24,8 @@ app.use(websocketLogger);
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const accessLogStream = fs.createWriteStream('./logs/' + "access.log", {flags: 'a'});
-app.use(morgan({stream: accessLogStream}));
 app.use(morgan('<:remote-addr> :remote-user |:method :url - :status| :user-agent :response-time ms [:date[iso]]'));
+app.use(morgan({stream: accessLogStream}));
 
 mongoose.connect("mongodb://"+process.env.MONGO_HOST, { 
     dbName: process.env.MONGO_DB,
@@ -41,7 +41,7 @@ app.ws('/echo', (ws, req) => {
     ws.on('message', (msg) => {
         let current_logs = fs.readFileSync('./logs/' + "access.log", {flags: 'a'});
         current_logs = current_logs.toString();
-        console.log(current_logs)
+        // console.log(current_logs)
         ws.send(current_logs);
         // ws.send(msg);
     });
