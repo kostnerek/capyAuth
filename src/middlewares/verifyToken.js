@@ -2,6 +2,14 @@ import dotenv from 'dotenv';
 import { validateToken } from '../services/jwt.service.js';
 dotenv.config();
 
+/**
+ * Middleware which intercepts headers sent to the server, 
+ * checks if an access token or refresh token is present, validates them,
+ * and if they are valid, it adds the user object to the request object
+ * @param {Express.Request} req 
+ * @param {Express.Response} res 
+ * @param {Express.Next} next
+ */
 export const verifyToken = (req, res, next) => {
     const access_token = req.headers['x-access-token'];
     const refresh_token = req.headers['x-refresh-token'];
