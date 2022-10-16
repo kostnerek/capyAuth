@@ -1,5 +1,5 @@
 import { findUserByEmail, createUser, findUserByUsername } from "../models/UserModel.js";
-import { createTokens } from "../services/jwt.service.js";
+import { createTokens, refreshTokenService } from "../services/jwt.service.js";
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 
@@ -33,7 +33,7 @@ export const login = async (req, res) => {
     if (!user) return res.status(400).json({ message: "User not found" });
 
     const result = bcrypt.compare(password, user.password);
-    if (!result) return res.status(400).json({ message: "Invalid password" });
+    if (!result) return res.status(406).json({ message: "Invalid password" });
 
     if (user) {
         const tokens = createTokens(user);
@@ -46,5 +46,7 @@ export const checkAuth = async (req, res) => {
 }
 
 export const refreshToken = async (req, res) => {
-
+    const tokens = await refreshTokenService(req.headers['x-access-token'], req.headers['x-refresh-token'], res)
+    if (Object.keys(tokens).includes("message")) return res.status(400).json(tokens);
+    return res.status(200).json(tokens);
 }
