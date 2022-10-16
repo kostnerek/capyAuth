@@ -17,13 +17,6 @@ export const register = async (req, res) => {
         if (err) return res.status(500).json({ message: "Internal server error" });
         return res.status(201).json({ message: "User created" });
     });
-    /* bcrypt.hash(password, 10, (err, hash) => {
-        if (err) return res.status(500).json({ message: "Internal server error" });
-        createUser({ username, password: hash, email }, (err) => {
-            if (err) return res.status(500).json({ message: "Internal server error" });
-            return res.status(201).json({ message: "User created" });
-        });
-    }); */
     
 };
 
