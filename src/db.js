@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
 
 /**
  *  Function to connect to the mongodb, 

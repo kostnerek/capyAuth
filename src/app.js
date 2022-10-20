@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import authRouter from './routes/auth.route.js';
 import connectToDB from './db.js';
 
-dotenv.config();
+dotenv.config({ path: `./.env.${process.env.NODE_ENV}` })
 
 const app = express();
 const port = process.env.PORT || 3000;
