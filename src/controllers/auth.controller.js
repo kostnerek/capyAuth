@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 
 dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
+
 /**
  * Function which handles user registration
  * 
