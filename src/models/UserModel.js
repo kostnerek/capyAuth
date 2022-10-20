@@ -1,61 +1,58 @@
-import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcrypt';
 
-const Schema = mongoose.Schema;
-const UserSchema = new Schema({
-    username: String,
-    password: String,
-    email: String,
-    created_at: { type: Date, default: Date.now },
-});
-
-/**
- * Pre-save hook which hashes the password before saving it to the database, 
- * if the password is modified or user is new
- */
-UserSchema.pre('save', async function (next) {
-    const user = this;
-    if(user.isModified('password') || user.isNew) {
-        // await here is needed despite of bcrypt.hash not being as async function, don't know why
-        user.password = await bcrypt.hash(user.password, 10)
-    }
-    next();
-})
-
-// Geenrate model from schema
-const UserModel = mongoose.model("users", UserSchema);
-
-/**
- * Function which search for user in the database based on the provided email
- * @param {String} email - Email to search for
- * @returns {Object|null} - User object [username, password, email, created_at]
- */
-export const findUserByEmail = async (email) => {
-    return UserModel.findOne({ email: email })
-    .then((user) => {
-        return user;
-    })
-};
-/**
- * Function which search for user in the database based on the provided username
- * @param {String} username - Email to search for
- * @returns {Object|null} - User object [username, password, email, created_at]
- */
-export const findUserByUsername = async (username) => {
-    return UserModel.findOne({ username: username })
-    .then((user) => {
-        return user;
-    })
-};
-
-/**
- * Function which creates new user in the database
- * @param {Object} user - User object consisting of username, password and email [username, password, email]
- * @param {Callback} callback - Callback function to execute after the user is created
- */
-export const createUser = (user, cb) => {
-    const user_instance = new UserModel({ username: user.username, password: user.password, email: user.email });
-    user_instance.save((err) => {
-        cb(err);
+const UserModel = (sequelize, { DataTypes }) => {
+    const User = sequelize.define("user", {
+        id: {
+            type: DataTypes.STRING,
+            primaryKey: true,
+            allowNull: false,
+            unique: true,
+            validate: {
+                notEmpty: true,
+            }
+            
+        },
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                notEmpty: true,
+            }
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                notEmpty: true,
+            }
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                notEmpty: true,
+            }
+        },
     });
-};
+
+    User.findUserByUsername = async (username) => {
+        return User.findOne({ where: { username: username } })
+    };
+
+    User.findUserByEmail = async (email) => {
+        return User.findOne({ where: { email: email } })
+    };
+
+    User.createUser = async (user) => {
+        const id = uuidv4();
+        const password = await bcrypt.hash(user.password, 10)
+        return User.create({ id: id, username: user.username, password: password, email: user.email })
+    };
+
+    return User;
+}
+export default UserModel;

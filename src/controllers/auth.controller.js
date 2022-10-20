@@ -1,4 +1,3 @@
-// import { findUserByEmail, createUser, findUserByUsername } from "../models/UserModel.js";
 import { createTokens, refreshTokenService } from "../services/jwt.service.js";
 import { validateMail, validatePassword, validateUsername } from "../helpers/validators.js";
 import dotenv from 'dotenv';

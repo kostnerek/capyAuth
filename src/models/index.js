@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 import dbConfig from "../db.config.js";
-import UserModel from "./UserModel.postgres.js";
+import UserModel from "./UserModel.js";
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
