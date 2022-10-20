@@ -5,11 +5,13 @@ const UserModel = (sequelize, { DataTypes }) => {
     const User = sequelize.define("user", {
         id: {
             type: DataTypes.STRING,
+            primaryKey: true,
             allowNull: false,
             unique: true,
             validate: {
                 notEmpty: true,
             }
+            
         },
         username: {
             type: DataTypes.STRING,
@@ -47,9 +49,10 @@ const UserModel = (sequelize, { DataTypes }) => {
 
     User.createUser = async (user) => {
         const id = uuidv4();
-        const password = bcrypt.hash(user.password, 10)
+        const password = await bcrypt.hash(user.password, 10)
         return User.create({ id: id, username: user.username, password: password, email: user.email })
     };
 
     return User;
 }
+export default UserModel;
