@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "DEBUG=express:* & nodemon ./src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "DEBUG=express:* & NODE_ENV=dev nodemon ./src/app.js",
+    "test": "DEBUG=express:* & NODE_ENV=test nodemon ./src/app.js"
   },
   "type": "module",
   "author": "",
@@ -20,7 +20,10 @@
     "mongoose": "^6.6.1"
   },
   "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.1.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.0"
   }
 }
