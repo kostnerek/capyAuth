@@ -1,4 +1,4 @@
-<img align="center"src='https://github.com/kostnerek/capyAuth/blob/main/capyauth-logo.png'>
+<img width="300" align="center"src='https://github.com/kostnerek/capyAuth/blob/main/capyauth-logo.png'>
 <h1 align="center">CapyAuth</h1>
 
 **✨Basic microservice for authorization and authentication to your infrastructure✨**
