@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:14.3
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+
+  backend:
+    env_file: .env.dev
+    image: capy-auth
+    ports:
+      - "${PORT}:${PORT}"
