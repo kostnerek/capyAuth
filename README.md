@@ -1,7 +1,15 @@
-<img width="300" align="center"src='https://github.com/kostnerek/capyAuth/blob/main/capyauth-logo.png'>
-<h1 align="center">CapyAuth</h1>
+<p align="center">
+  <img width="300" align="center"src='https://github.com/kostnerek/capyAuth/blob/main/capyauth-logo.png'>
+  <h1 align="center">CapyAuth<br/>✨Basic microservice to auth into your infrastructure✨</h1>
+ </p>
+<p align="center">
+  <a href="#prerequisities">Prerequisities</a> •
+  <a href="#env-file">Env file</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#use-case">Use-case</a> •
+  <a href="#todo">TODO</a> 
+</p>
 
-**✨Basic microservice for authorization and authentication to your infrastructure✨**
 #### Prerequisities
 - Node>=14
 - Postgres database (there is possibility to deploy capyAuth using docker-compose)
@@ -19,11 +27,11 @@ DB_NAME=postgres
 DB_DIALECT=postgres (sequelize dialect)
 ```
 #### Installation
-  - Simple installation:
-  `npm i` or `yarn`
-  `npm start` or `yarn start`
-  - Docker installation:
-  `docker-compose --env-file path/to/.env up` - for deploying whole app as one, with postgres DB
+  - Simple installation: <br/>
+  `npm i` or `yarn`<br/>
+  `npm start` or `yarn start`<br/>
+  - Docker installation:<br/>
+  `docker-compose --env-file path/to/.env up` - for deploying whole app as one, with postgres DB <br/>
   `docker build --tag <name> .` - for standalone deployment 
 #### Use-case
 <img src='https://github.com/kostnerek/capyAuth/blob/main/infographics.png' alt='capyauth use case'><br/>
