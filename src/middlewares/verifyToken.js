@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { validateToken } from '../services/jwt.service.js';
-dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
+dotenv.config();
 
 /**
  * Middleware which intercepts headers sent to the server, 
