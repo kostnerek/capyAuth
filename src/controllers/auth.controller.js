@@ -28,15 +28,13 @@ export const register = async (req, res) => {
     // db.Users.findUserByEmail
     const userEmailCheck    = await db.Users.findUserByEmail(email)
     const userUsernameCheck = await db.Users.findUserByUsername(username)
-    console.log(userEmailCheck);
-    console.log(userUsernameCheck);
+    
     if (userEmailCheck || userUsernameCheck) return res.status(400).json({ message: "User already exists" });
 
     // save user to the database
-    db.Users.createUser({ username, password, email }, (err) => {
-        if (err) return res.status(500).json({ message: "Internal server error" });
-        return res.status(201).json({ message: "User created" });
-    });
+    const user = await db.Users.createUser({ username, password, email })
+    if (!user) return res.status(500).json({ message: "Internal server error" });
+    return res.status(201).json({ message: "User created" });
 };
 
 /**

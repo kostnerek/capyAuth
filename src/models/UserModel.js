@@ -29,7 +29,7 @@ const UserModel = (sequelize, { DataTypes }) => {
                 notEmpty: true,
             }
         },
-        email: {
+        mail: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
@@ -43,14 +43,15 @@ const UserModel = (sequelize, { DataTypes }) => {
         return User.findOne({ where: { username: username } })
     };
 
-    User.findUserByEmail = async (email) => {
-        return User.findOne({ where: { email: email } })
+    User.findUserByEmail = async (mail) => {
+        return User.findOne({ where: { mail: mail } })
     };
 
     User.createUser = async (user) => {
         const id = uuidv4();
         const password = await bcrypt.hash(user.password, 10)
-        return User.create({ id: id, username: user.username, password: password, email: user.email })
+        console.log('creating user')
+        return User.create({ id: id, username: user.username, password: password, mail: user.email })
     };
 
     return User;
