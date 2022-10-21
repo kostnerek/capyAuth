@@ -1,7 +1,6 @@
-<div align="center">
-	<img src='https://github.com/kostnerek/capyAuth/blob/main/capyauth-logo.png'>
-	<h1>CapyAuth</h1>
-</div>
+<img align="center"src='https://github.com/kostnerek/capyAuth/blob/main/capyauth-logo.png'>
+<h1 align="center">CapyAuth</h1>
+
 **✨Basic microservice for authorization and authentication to your infrastructure✨**
 #### Prerequisities
 - Node>=14
