@@ -1,5 +1,5 @@
 <div align="center">
-	<img src='https://imgur.com/a/uq9THjH'>
+	<img src='https://github.com/kostnerek/capyAuth/blob/main/capyauth-logo.png'>
 	<h1>CapyAuth</h1>
 </div>
 **✨Basic microservice for authorization and authentication to your infrastructure✨**
@@ -27,7 +27,7 @@ DB_DIALECT=postgres (sequelize dialect)
   `docker-compose --env-file path/to/.env up` - for deploying whole app as one, with postgres DB
   `docker build --tag <name> .` - for standalone deployment 
 #### Use-case
-<img src='https://imgur.com/Q4oxyF2' alt='capyauth use case'><br/>
+<img src='https://github.com/kostnerek/capyAuth/blob/main/infographics.png' alt='capyauth use case'><br/>
 #### TODO
  - tests
  - Github actions for pushing newest main branch to dockerhub
