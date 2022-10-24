@@ -12,6 +12,9 @@ describe("Test /auth/login", () => {
     
     before(async () => {
         await db.sequelize.truncate({ cascade: true });
+        await server
+            .post('/auth/register')
+            .send({ username:"testAuth", email: "auth@gmail.com", password: "zaq1@WSX" })
     });
 
     after(async () => {
@@ -48,68 +51,55 @@ describe("Test /auth/login", () => {
 
     describe("Login to API", () => {
         describe("Using email", () => {
-            it("Should return accessToken and refreshToken", async () => {
-                await server
-                    .post('/auth/register')
-                    .send({ username:"testLogin", email: "login@gmail.com", password: "zaq1@WSX" })
-
+            it("Should return accessToken and refreshToken", (done) => {
                 server
                     .post('/auth/login')
-                    .send({ email: "login@gmail.com", password: "zaq1@WSX" })
+                    .send({ email: "auth@gmail.com", password: "zaq1@WSX" })
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('accessToken');
                         res.body.should.have.property('refreshToken');
+                        done();
                     })
             });
         });
 
         describe("Using username", () => {
-            it("Should return accessToken and refreshToken", async () => {
-                await server
-                    .post('/auth/register')
-                    .send({ username:"testLogin", email: "login@gmail.com", password: "zaq1@WSX" })
-
+            it("Should return accessToken and refreshToken", (done) => {
                 server
                     .post('/auth/login')
-                    .send({ username: "testLogin", password: "zaq1@WSX" })
+                    .send({ username: "testAuth", password: "zaq1@WSX" })
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('accessToken');
                         res.body.should.have.property('refreshToken');
+                        done();
                     })
             });
         });
 
         describe("Using email&username", () => {
-            it("Should return accessToken and refreshToken", async () => {
-                await server
-                    .post('/auth/register')
-                    .send({ username:"testLogin", email: "login@gmail.com", password: "zaq1@WSX" })
-
+            it("Should return accessToken and refreshToken", (done) => {
                 server
                     .post('/auth/login')
-                    .send({ username: "testLogin", email: "login@gmail.com", password: "zaq1@WSX" })
+                    .send({ username: "testAuth", email: "auth@gmail.com", password: "zaq1@WSX" })
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('accessToken');
                         res.body.should.have.property('refreshToken');
+                        done();
                     })
             });
         });
 
         describe("Logging in using wrong password", () => {
             it("Should return 406", async () => {
-                await server
-                    .post('/auth/register')
-                    .send({ username:"testLogin", email: "login@gmail.com", password: "zaq1@WSX" })
-    
                 server
                     .post('/auth/login')
-                    .send({ username: "testLogin", email: "login@gmail.com", password: "zaq1@WWWW" })
+                    .send({ username: "testAuth", email: "auth@gmail.com", password: "zaq1@WWWW" })
                     .end((err, res) => {
                         res.should.have.status(406);
                         res.body.should.be.a('object');
