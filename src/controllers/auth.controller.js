@@ -56,7 +56,7 @@ export const login = async (req, res) => {
     if (!user) return res.status(400).json({ message: "User not found" });
 
     // compare password hash with the one in the database if they don't match, return error
-    const result = bcrypt.compare(password, user.password);
+    const result = await bcrypt.compare(password, user.password);
     if (!result) return res.status(406).json({ message: "Invalid password" });
 
     // if everything is ok, create tokens and return them

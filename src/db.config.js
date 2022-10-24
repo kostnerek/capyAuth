@@ -14,5 +14,4 @@ const dbConfig = {
         idle: 10000
     }
 };
-
 export default dbConfig;
