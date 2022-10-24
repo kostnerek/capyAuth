@@ -14,8 +14,8 @@ const REFRESH_TOKEN_EXPIRATION = process.env.REFRESH_TOKEN_EXPIRATION;
  * @returns {Object} - Object consisting of access and refresh token
 */ 
 export const createTokens = (user) => {
-    const accessToken = jwt.sign({ username: user.username, email: user.email }, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRATION });
-    const refreshToken = jwt.sign({ username: user.username, email: user.email }, REFRESH_TOKEN_SECRET, { expiresIn: REFRESH_TOKEN_EXPIRATION });
+    const accessToken = jwt.sign({ username: user.username, email: user.mail }, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRATION });
+    const refreshToken = jwt.sign({ username: user.username, email: user.mail }, REFRESH_TOKEN_SECRET, { expiresIn: REFRESH_TOKEN_EXPIRATION });
     return { accessToken, refreshToken };
 }
 

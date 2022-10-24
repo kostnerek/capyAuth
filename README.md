@@ -32,7 +32,9 @@ DB_DIALECT=postgres (sequelize dialect)
   `npm start` or `yarn start`<br/>
   - Docker installation:<br/>
   `docker-compose --env-file path/to/.env up` - for deploying whole app as one, with postgres DB <br/>
-  `docker build --tag <name> .` - for standalone deployment 
+  `docker build --tag <name> .`<br>
+  `docker run --env-file path/to/.env --network="host" <name>` - for standalone deployment 
+
 #### Use-case
 <img src='https://github.com/kostnerek/capyAuth/blob/main/infographics.png' alt='capyauth use case'><br/>
 #### TODO

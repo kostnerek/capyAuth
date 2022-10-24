@@ -50,7 +50,6 @@ const UserModel = (sequelize, { DataTypes }) => {
     User.createUser = async (user) => {
         const id = uuidv4();
         const password = await bcrypt.hash(user.password, 10)
-        console.log('creating user')
         return User.create({ id: id, username: user.username, password: password, mail: user.email })
     };
 
