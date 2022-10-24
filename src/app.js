@@ -15,13 +15,15 @@ db.sequelize.sync();
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('<:remote-addr> :remote-user |:method :url - :status| :user-agent :response-time ms [:date[iso]]'));
-
+if (process.env.NODE_ENV !== 'test') {
+    app.use(morgan('<:remote-addr> :remote-user |:method :url - :status| :user-agent :response-time ms [:date[iso]]'));
+}
 app.use('/auth', authRouter);
 
 
 
 app.listen(port, () => {
-    console.log("restarting...")
     console.log(`Server started on port ${port}`);
 });
+
+export default app; // for testing purposes
